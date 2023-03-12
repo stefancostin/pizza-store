@@ -6,8 +6,8 @@ internal class CommandHandler<TCommand, TAggregate>
     where TCommand : Command
     where TAggregate : Aggregate, new()
 {
-    private readonly Func<Guid, IEnumerable<Event>> _eventStream;
-    private readonly Action<EventMessage> _publishEvent;
+    protected readonly Func<Guid, IEnumerable<Event>> _eventStream;
+    protected readonly Action<EventMessage> _publishEvent;
 
     protected CommandHandler(
         Func<Guid, IEnumerable<Event>> eventStream,

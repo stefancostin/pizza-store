@@ -1,8 +1,8 @@
-﻿using PizzaStore.Tests.InventoryItems;
+﻿using PizzaStore.Tests.Infrastructure;
 
 namespace PizzaStore.Tests;
 
-public partial class WhenCreateInventoryItem : InventoryItemTests
+public class WhenCreateInventoryItem : EventPipelineTests
 {
     [Fact]
     public void ThenInventoryItemIsCreated()

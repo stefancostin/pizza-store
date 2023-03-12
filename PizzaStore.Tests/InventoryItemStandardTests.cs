@@ -23,7 +23,7 @@ public class InventoryItemStandardTests
     }
 
     [Fact]
-    public void CreateInventoryItem_GivenGuidAndName_ItemIsCreated()
+    public void GivenGuidAndName_WhenCreateInventoryItem_ThenItemIsCreated()
     {
         // Arrange
         var createInventoryItem = new CreateInventoryItem(FakeItem.Id, FakeItem.Name);
@@ -37,7 +37,7 @@ public class InventoryItemStandardTests
     }
 
     [Fact]
-    public void AddInventoryItem_GivenPositiveQuantity_ItemQuantityIsAdded()
+    public void GivenPositiveQuantity_WhenAddInventoryItem_ThenItemQuantityIsAdded()
     {
         // Arrange
         var inventoryItemCreated = new InventoryItemCreated(FakeItem.Id, FakeItem.Name);
@@ -53,6 +53,35 @@ public class InventoryItemStandardTests
 
         // Assert
         _newEvents.ToArray().Should().Equal(new Event[] { itemAddedToInventory });
+    }
+
+    [Fact]
+    public void GivenPositiveQuantity_WhenAddInventoryItem_ThenItemQuantityIsAdded_____UsingAbstractions()
+    {
+        // Arrange
+        Given(InventoryItemIsCreated());
+
+        // Act
+        When(AddItemQuantityToInventory(10));
+
+        // Assert
+        Then(ItemQuantityIsAddedToInventory(10));
+    }
+
+    private void Given(params Event[] previousEvents)
+    {
+        //_previousEvents.Clear();
+        _previousEvents.AddRange(previousEvents);
+    }
+
+    private void When(Command command)
+    {
+        _router.HandleCommand(command);
+    }
+
+    private void Then(params Event[] expectedEvents)
+    {
+        _newEvents.ToArray().Should().Equal(expectedEvents);
     }
 }
 

@@ -16,3 +16,8 @@ public record struct RemoveItemQuantity(Guid InventoryItemId, int Quantity) : Co
 {
     public Guid AggregateId => InventoryItemId;
 }
+
+public record struct SetItemQuantity(Guid InventoryItemId, int Quantity) : Command
+{
+    public Guid AggregateId => InventoryItemId;
+}

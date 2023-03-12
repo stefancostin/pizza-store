@@ -8,5 +8,7 @@ public record struct ItemQuantityAdded(Guid InventoryItemId, int Quantity) : Eve
 
 public record struct ItemQuantityRemoved(Guid InventoryItemId, int Quantity) : Event;
 
+public record struct ItemQuantitySet(Guid InventoryItemId, int Quantity) : Event;
+
 public record struct InsufficientItemQuantity(Guid InventoryItemId) : Event;
  

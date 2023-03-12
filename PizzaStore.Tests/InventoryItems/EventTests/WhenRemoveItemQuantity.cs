@@ -1,8 +1,8 @@
-﻿using PizzaStore.Tests.InventoryItems;
+﻿using PizzaStore.Tests.Infrastructure;
 
 namespace PizzaStore.Tests;
 
-public partial class WhenRemoveItemQuantity : InventoryItemTests
+public class WhenRemoveItemQuantity : EventPipelineTests
 {
     [Fact]
     public void AndSufficientStockThenItemQuantityIsRemoved()
@@ -12,7 +12,7 @@ public partial class WhenRemoveItemQuantity : InventoryItemTests
             ItemQuantityIsAddedToInventory(10));
 
         When(
-            RemoveItemQuantity(10));
+            RemoveItemQuantityFromInventory(10));
 
         Then(
             ItemQuantityIsRemovedFromInventory(10));
@@ -25,7 +25,7 @@ public partial class WhenRemoveItemQuantity : InventoryItemTests
             InventoryItemIsCreated());
 
         When(
-            RemoveItemQuantity(10));
+            RemoveItemQuantityFromInventory(10));
 
         Then(
             InsuffucientItemQuantityInInventory());

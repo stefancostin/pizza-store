@@ -33,6 +33,10 @@ public class CommandRouter
                 var inventoryItemRemover = new InventoryItemQuantityRemover(_eventStream, _publishEvent);
                 inventoryItemRemover.Handle(removeItemQuantityFromInventory);
                 return;
+            case SetItemQuantity setItemQuantityInInventory:
+                var inventoryItemSetter = new InventoryItemQuantitySetter(_eventStream, _publishEvent);
+                inventoryItemSetter.Handle(setItemQuantityInInventory);
+                return;
         }
     }
 }
