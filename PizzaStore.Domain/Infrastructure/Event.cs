@@ -2,6 +2,5 @@
 
 public interface Event
 {
+    public Guid AggregateId { get; }
 }
-
-public record EventMessage(Guid AggregateId, Event Event);

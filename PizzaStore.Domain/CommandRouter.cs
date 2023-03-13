@@ -1,20 +1,16 @@
 ﻿using PizzaStore.Domain.CommandHandlers;
-using PizzaStore.Domain.Infrastructure;
+using PizzaStore.Domain.Stores;
 using PizzaStore.Domain.Warehousing;
 
 namespace PizzaStore.Domain;
 
 public class CommandRouter
 {
-    private readonly Func<Guid, IEnumerable<Event>> _eventStream;
-    private readonly Action<EventMessage> _publishEvent;
+    private readonly IEventStore _eventStore;
 
-    public CommandRouter(
-        Func<Guid, IEnumerable<Event>> eventStream,
-        Action<EventMessage> publishEvent)
+    public CommandRouter(IEventStore eventStore)
     {
-        _eventStream = eventStream;
-        _publishEvent = publishEvent;
+        _eventStore = eventStore;
     }
 
     public void HandleCommand(object command)
@@ -22,19 +18,19 @@ public class CommandRouter
         switch (command)
         {
             case CreateInventoryItem createInventoryItem:
-                var inventoryItemCreator = new InventoryItemCreator(_eventStream, _publishEvent);
+                var inventoryItemCreator = new InventoryItemCreator(_eventStore);
                 inventoryItemCreator.Handle(createInventoryItem);
                 return;
             case AddItemQuantity addItemQuantityToInventory:
-                var inventoryItemAdder = new InventoryItemQuantityAdder(_eventStream, _publishEvent);
+                var inventoryItemAdder = new InventoryItemQuantityAdder(_eventStore);
                 inventoryItemAdder.Handle(addItemQuantityToInventory);
                 return;
             case RemoveItemQuantity removeItemQuantityFromInventory:
-                var inventoryItemRemover = new InventoryItemQuantityRemover(_eventStream, _publishEvent);
+                var inventoryItemRemover = new InventoryItemQuantityRemover(_eventStore);
                 inventoryItemRemover.Handle(removeItemQuantityFromInventory);
                 return;
             case SetItemQuantity setItemQuantityInInventory:
-                var inventoryItemSetter = new InventoryItemQuantitySetter(_eventStream, _publishEvent);
+                var inventoryItemSetter = new InventoryItemQuantitySetter(_eventStore);
                 inventoryItemSetter.Handle(setItemQuantityInInventory);
                 return;
         }

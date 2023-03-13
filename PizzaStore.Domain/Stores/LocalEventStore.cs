@@ -2,14 +2,14 @@
 
 namespace PizzaStore.Domain.Stores;
 
-internal interface IEventStore
+public interface IEventStore
 {
     void Archive(Guid aggregateId, Func<Event, bool> archivePredicate);
     IEnumerable<Event> GetEvents(Guid aggregateId);
-    void Publish(Guid aggregateId, Event @event);
+    void Publish(Event @event);
 }
 
-internal class LocalEventStore : IEventStore
+public class LocalEventStore : IEventStore
 {
     private readonly Dictionary<Guid, List<Event>> _archivedEvents;
     private readonly Dictionary<Guid, List<Event>> _persistedEvents;
@@ -22,9 +22,9 @@ internal class LocalEventStore : IEventStore
 
     public void Archive(Guid aggregateId, Func<Event, bool> archivePredicate)
     {
-        if (_persistedEvents.TryGetValue(aggregateId, out List<Event> events))
+        if (_persistedEvents.TryGetValue(aggregateId, out List<Event> persistedEvents))
         {
-            var eventsToArchive = events.Where(archivePredicate).ToList();
+            var eventsToArchive = persistedEvents.Where(archivePredicate).ToList();
 
             if (eventsToArchive.Any())
             {
@@ -37,7 +37,7 @@ internal class LocalEventStore : IEventStore
                     _archivedEvents.Add(aggregateId, eventsToArchive);
                 }
 
-                _persistedEvents[aggregateId] = archivedEvents.Where(e => !archivePredicate(e)).ToList();
+                _persistedEvents[aggregateId] = persistedEvents.Where(e => !archivePredicate(e)).ToList();
             }
         }
     }
@@ -52,20 +52,20 @@ internal class LocalEventStore : IEventStore
         return Enumerable.Empty<Event>();
     }
 
-    public void Publish(Guid aggregateId, Event @event)
+    public void Publish(Event @event)
     {
-        if (_persistedEvents.TryGetValue(aggregateId, out List<Event> events))
+        if (_persistedEvents.TryGetValue(@event.AggregateId, out List<Event> events))
         {
             events.Add(@event);
         }
         else
         {
-            _persistedEvents.Add(aggregateId, new List<Event> { @event });
+            _persistedEvents.Add(@event.AggregateId, new List<Event> { @event });
         }
     }
 }
 
-//internal class EventStoreArchive
+//public class EventStoreArchive
 //{
 //    private readonly Dictionary<Guid, List<Event>> _archivedEvents;
 

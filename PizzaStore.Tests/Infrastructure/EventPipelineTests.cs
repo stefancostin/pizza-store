@@ -1,6 +1,7 @@
 ﻿using FluentAssertions;
 using PizzaStore.Domain;
 using PizzaStore.Domain.Infrastructure;
+using PizzaStore.Domain.Stores;
 
 namespace PizzaStore.Tests.Infrastructure;
 
@@ -9,28 +10,39 @@ namespace PizzaStore.Tests.Infrastructure;
 /// </summary>
 public class EventPipelineTests
 {
-    private readonly List<Event> _previousEvents = new List<Event>();
-    private readonly List<Event> _newEvents = new List<Event>();
+    private IEventStore _eventStore;
+    private List<Event> _allEvents;
+    private List<Event> _newEvents;
+    private List<Event> _previousEvents;
 
     protected void Given(params Event[] events)
     {
-        _previousEvents.Clear();
-        _previousEvents.AddRange(events);
+        _eventStore = new LocalEventStore();
+
+        foreach (var @event in events)
+        {
+            _eventStore.Publish(@event);
+        }
+
+        _previousEvents = events.ToList();
     }
 
     protected void When(Command command)
     {
-        var router = new CommandRouter(_ => _previousEvents, msg => _newEvents.Add(msg.Event));
+        var router = new CommandRouter(_eventStore);
         router.HandleCommand(command);
+
+        _allEvents = _eventStore.GetEvents(command.AggregateId).ToList();
+        _newEvents = _allEvents.Except(_previousEvents).ToList();
     }
 
     protected void Then(params Event[] expectedEvents)
     {
-        _newEvents.ToArray().Should().Equal(expectedEvents);
+        _newEvents.Should().Equal(expectedEvents);
     }
 
-    protected void ThenCompareHistory(params Event[] expectedEvents)
+    protected void ThenAll(params Event[] expectedEvents)
     {
-        _previousEvents.ToArray().Should().Equal(expectedEvents);
+        _allEvents.Should().Equal(expectedEvents);
     }
 }

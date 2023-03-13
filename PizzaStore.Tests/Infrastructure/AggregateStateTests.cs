@@ -6,14 +6,12 @@ public class AggregateStateTests<TAggregate>
     where TAggregate : Aggregate, new()
 {
     private TAggregate _aggregate;
-    private readonly List<Event> _previousEvents = new List<Event>();
+    private List<Event> _previousEvents;
 
     protected void Given(params Event[] events)
     {
         _aggregate = new TAggregate();
-
-        _previousEvents.Clear();
-        _previousEvents.AddRange(events);
+        _previousEvents = events.ToList();
     }
 
     protected void When(Command command)

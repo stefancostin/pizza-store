@@ -17,18 +17,18 @@ public class InventoryItemStandardStateTests
     }
 
     [Fact]
-    public void GivenPositiveQuantity_WhenAddInventoryItem_ThenItemQuantityIsAdded_____UsingAbstractions()
+    public void GivenPositiveQuantity_WhenAddInventoryItem_ThenItemQuantityIsAdded()
     {
         Given(InventoryItemIsCreated());
 
         When(AddItemQuantityToInventory(10));
 
-        Then(() => _inventoryItem.Should().Be(10));
+        Then(() => _inventoryItem.Quantity.Should().Be(10));
     }
 
     private void Given(params Event[] previousEvents)
     {
-        //_previousEvents.Clear();
+        _previousEvents.Clear();
         _previousEvents.AddRange(previousEvents);
     }
 

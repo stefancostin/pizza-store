@@ -1,4 +1,5 @@
-﻿using PizzaStore.Tests.Infrastructure;
+﻿using PizzaStore.Domain.Warehousing;
+using PizzaStore.Tests.Infrastructure;
 
 namespace PizzaStore.Tests.InventoryItems;
 
@@ -29,7 +30,8 @@ public class WhenSetItemQuantity : EventPipelineTests
         When(
             SetItemQuantity(5));
 
-        ThenCompareHistory(
-            InventoryItemIsCreated());
+        ThenAll(
+            InventoryItemIsCreated(),
+            ItemQuantityIsSetInInventory(5));
     }
 }
