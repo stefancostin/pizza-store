@@ -1,6 +1,6 @@
 ﻿using PizzaStore.Domain.Infrastructure;
 
-namespace PizzaStore.Domain.Stores;
+namespace PizzaStore.Domain.EventStores;
 
 public interface IEventStore
 {

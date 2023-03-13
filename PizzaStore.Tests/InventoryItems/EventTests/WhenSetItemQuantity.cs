@@ -1,8 +1,6 @@
-﻿using FluentAssertions;
-using PizzaStore.Domain.Warehousing;
-using PizzaStore.Tests.Infrastructure;
+﻿using PizzaStore.Tests.Infrastructure;
 
-namespace PizzaStore.Tests.InventoryItems;
+namespace PizzaStore.Tests.InventoryItems.EventTests;
 
 public class WhenSetItemQuantity : EventPipelineTests
 {

@@ -1,5 +1,5 @@
-﻿using PizzaStore.Domain.Infrastructure;
-using PizzaStore.Domain.Stores;
+﻿using PizzaStore.Domain.EventStores;
+using PizzaStore.Domain.Infrastructure;
 
 namespace PizzaStore.Domain.CommandHandlers;
 

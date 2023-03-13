@@ -1,4 +1,4 @@
-﻿using PizzaStore.Domain.Stores;
+﻿using PizzaStore.Domain.EventStores;
 using PizzaStore.Domain.Warehousing;
 
 namespace PizzaStore.Domain.CommandHandlers;

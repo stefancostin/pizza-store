@@ -1,6 +1,6 @@
 ﻿using PizzaStore.Domain.CommandHandlers;
+using PizzaStore.Domain.EventStores;
 using PizzaStore.Domain.Infrastructure;
-using PizzaStore.Domain.Stores;
 using PizzaStore.Domain.Warehousing;
 
 internal class InventoryItemQuantitySetter : CommandHandler<SetItemQuantity, InventoryItem>

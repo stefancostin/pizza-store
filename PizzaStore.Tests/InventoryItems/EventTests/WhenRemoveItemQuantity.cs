@@ -1,6 +1,6 @@
 ﻿using PizzaStore.Tests.Infrastructure;
 
-namespace PizzaStore.Tests;
+namespace PizzaStore.Tests.InventoryItems.EventTests;
 
 public class WhenRemoveItemQuantity : EventPipelineTests
 {

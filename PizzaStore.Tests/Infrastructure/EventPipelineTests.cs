@@ -1,12 +1,12 @@
 ﻿using FluentAssertions;
 using PizzaStore.Domain;
+using PizzaStore.Domain.EventStores;
 using PizzaStore.Domain.Infrastructure;
-using PizzaStore.Domain.Stores;
 
 namespace PizzaStore.Tests.Infrastructure;
 
 /// <summary>
-/// Tests the integration between the command router, handler and aggregate.
+/// Tests the integration between the event store, command router, command handler and aggregate.
 /// </summary>
 public class EventPipelineTests
 {
