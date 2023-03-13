@@ -1,4 +1,5 @@
-﻿using PizzaStore.Domain.Warehousing;
+﻿using FluentAssertions;
+using PizzaStore.Domain.Warehousing;
 using PizzaStore.Tests.Infrastructure;
 
 namespace PizzaStore.Tests.InventoryItems;

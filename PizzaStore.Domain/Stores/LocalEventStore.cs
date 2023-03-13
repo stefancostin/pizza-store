@@ -4,42 +4,18 @@ namespace PizzaStore.Domain.Stores;
 
 public interface IEventStore
 {
-    void Archive(Guid aggregateId, Func<Event, bool> archivePredicate);
+    IEnumerable<Event> Remove(Guid aggregateId, Func<Event, bool> archivePredicate);
     IEnumerable<Event> GetEvents(Guid aggregateId);
     void Publish(Event @event);
 }
 
 public class LocalEventStore : IEventStore
 {
-    private readonly Dictionary<Guid, List<Event>> _archivedEvents;
     private readonly Dictionary<Guid, List<Event>> _persistedEvents;
 
     public LocalEventStore()
     {
-        _archivedEvents = new Dictionary<Guid, List<Event>>();
         _persistedEvents = new Dictionary<Guid, List<Event>>();
-    }
-
-    public void Archive(Guid aggregateId, Func<Event, bool> archivePredicate)
-    {
-        if (_persistedEvents.TryGetValue(aggregateId, out List<Event> persistedEvents))
-        {
-            var eventsToArchive = persistedEvents.Where(archivePredicate).ToList();
-
-            if (eventsToArchive.Any())
-            {
-                if (_archivedEvents.TryGetValue(aggregateId, out List<Event> archivedEvents))
-                {
-                    archivedEvents.AddRange(eventsToArchive);
-                }
-                else
-                {
-                    _archivedEvents.Add(aggregateId, eventsToArchive);
-                }
-
-                _persistedEvents[aggregateId] = persistedEvents.Where(e => !archivePredicate(e)).ToList();
-            }
-        }
     }
 
     public IEnumerable<Event> GetEvents(Guid aggregateId)
@@ -63,26 +39,21 @@ public class LocalEventStore : IEventStore
             _persistedEvents.Add(@event.AggregateId, new List<Event> { @event });
         }
     }
+
+    public IEnumerable<Event> Remove(Guid aggregateId, Func<Event, bool> predicate)
+    {
+        if (_persistedEvents.TryGetValue(aggregateId, out List<Event> persistedEvents))
+        {
+            var eventsToArchive = persistedEvents.Where(predicate).ToList();
+
+            if (eventsToArchive.Any())
+            {
+                _persistedEvents[aggregateId] = persistedEvents.Where(e => !predicate(e)).ToList();
+
+                return eventsToArchive;
+            }
+        }
+
+        return Enumerable.Empty<Event>();
+    }
 }
-
-//public class EventStoreArchive
-//{
-//    private readonly Dictionary<Guid, List<Event>> _archivedEvents;
-
-//    public EventStoreArchive()
-//    {
-//        _archivedEvents = new Dictionary<Guid, List<Event>>();
-//    }
-
-//    public void Archive(Guid aggregateId, List<Event> eventsToArchive)
-//    {
-//        if (_archivedEvents.TryGetValue(aggregateId, out List<Event> events))
-//        {
-//            events.AddRange(eventsToArchive);
-//        }
-//        else
-//        {
-//            _archivedEvents.Add(aggregateId, eventsToArchive);
-//        }
-//    }
-//}

@@ -29,7 +29,7 @@ internal class CommandHandler<TCommand, TAggregate>
 
         foreach (var resultingEvent in resultingEvents)
         {
-            _eventStore.Publish(command.AggregateId, resultingEvent);
+            _eventStore.Publish(resultingEvent);
         }
     }
 }
