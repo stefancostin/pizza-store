@@ -1,13 +1,6 @@
-﻿using PizzaStore.Domain.Infrastructure;
+﻿using PizzaStore.Core.Abstractions;
 
-namespace PizzaStore.Domain.EventStores;
-
-public interface IEventStore
-{
-    IEnumerable<Event> Remove(Guid aggregateId, Func<Event, bool> archivePredicate);
-    IEnumerable<Event> GetEvents(Guid aggregateId);
-    void Publish(Event @event);
-}
+namespace PizzaStore.Core.EventStores;
 
 public class LocalEventStore : IEventStore
 {
@@ -44,13 +37,13 @@ public class LocalEventStore : IEventStore
     {
         if (_persistedEvents.TryGetValue(aggregateId, out List<Event> persistedEvents))
         {
-            var eventsToArchive = persistedEvents.Where(predicate).ToList();
+            var events = persistedEvents.Where(predicate).ToList();
 
-            if (eventsToArchive.Any())
+            if (events.Any())
             {
                 _persistedEvents[aggregateId] = persistedEvents.Where(e => !predicate(e)).ToList();
 
-                return eventsToArchive;
+                return events;
             }
         }
 

@@ -1,6 +1,6 @@
-﻿using PizzaStore.Domain.Infrastructure;
+﻿using PizzaStore.Core.Abstractions;
 
-namespace PizzaStore.Domain.Warehousing;
+namespace PizzaStore.Core.Inventory;
 
 public record struct CreateInventoryItem(Guid InventoryItemId, string Name) : Command
 {

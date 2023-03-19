@@ -1,4 +1,4 @@
-using PizzaStore.Domain.Infrastructure;
+using PizzaStore.Core.Abstractions;
 
 namespace PizzaStore.Tests.Infrastructure;
 

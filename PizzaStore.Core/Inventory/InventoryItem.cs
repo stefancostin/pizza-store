@@ -1,6 +1,6 @@
-﻿using PizzaStore.Domain.Infrastructure;
+﻿using PizzaStore.Core.Abstractions;
 
-namespace PizzaStore.Domain.Warehousing;
+namespace PizzaStore.Core.Inventory;
 
 public class InventoryItem : Aggregate
 {

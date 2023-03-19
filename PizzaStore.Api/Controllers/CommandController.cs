@@ -1,6 +1,6 @@
-﻿using PizzaStore.Domain;
-using PizzaStore.Domain.Infrastructure;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
+using PizzaStore.Core.Abstractions;
+using PizzaStore.Core;
 
 namespace Beersender.API.Controllers
 {

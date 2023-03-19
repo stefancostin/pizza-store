@@ -22,7 +22,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\PizzaStore.Domain\PizzaStore.Domain.csproj" />
+    <ProjectReference Include="..\PizzaStore.Core\PizzaStore.Core.csproj" />
   </ItemGroup>
 
 </Project>

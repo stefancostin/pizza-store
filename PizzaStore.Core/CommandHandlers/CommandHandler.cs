@@ -1,7 +1,7 @@
-﻿using PizzaStore.Domain.EventStores;
-using PizzaStore.Domain.Infrastructure;
+﻿using PizzaStore.Core.Abstractions;
+using PizzaStore.Core.EventStores;
 
-namespace PizzaStore.Domain.CommandHandlers;
+namespace PizzaStore.Core.CommandHandlers;
 
 internal class CommandHandler<TCommand, TAggregate>
     where TCommand : Command

@@ -1,4 +1,4 @@
-﻿namespace PizzaStore.Domain.Infrastructure;
+﻿namespace PizzaStore.Core.Abstractions;
 
 public abstract class Aggregate
 {
