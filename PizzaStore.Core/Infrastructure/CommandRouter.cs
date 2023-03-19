@@ -1,8 +1,8 @@
-﻿using PizzaStore.Core.CommandHandlers;
-using PizzaStore.Core.EventStores;
-using PizzaStore.Core.Inventory;
+﻿using PizzaStore.Core.Infrastructure.EventStores;
+using PizzaStore.Core.Warehousing.CommandHandlers;
+using PizzaStore.Core.Warehousing.Inventory;
 
-namespace PizzaStore.Core;
+namespace PizzaStore.Core.Infrastructure;
 
 public class CommandRouter
 {

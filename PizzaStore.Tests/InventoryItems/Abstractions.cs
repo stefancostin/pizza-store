@@ -1,4 +1,4 @@
-﻿using PizzaStore.Core.Inventory;
+﻿using PizzaStore.Core.Warehousing.Inventory;
 
 namespace PizzaStore.Tests.InventoryItems
 {

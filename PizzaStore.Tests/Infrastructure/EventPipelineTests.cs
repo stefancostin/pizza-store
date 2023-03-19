@@ -1,7 +1,7 @@
 ﻿using FluentAssertions;
-using PizzaStore.Core;
 using PizzaStore.Core.Abstractions;
-using PizzaStore.Core.EventStores;
+using PizzaStore.Core.Infrastructure;
+using PizzaStore.Core.Infrastructure.EventStores;
 
 namespace PizzaStore.Tests.Infrastructure;
 

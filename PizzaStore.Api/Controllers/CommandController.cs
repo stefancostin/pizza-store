@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using PizzaStore.Core.Abstractions;
-using PizzaStore.Core;
+using PizzaStore.Core.Infrastructure;
 
 namespace PizzaStore.Api.Controllers
 {

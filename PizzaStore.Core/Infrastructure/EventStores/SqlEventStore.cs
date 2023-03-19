@@ -1,7 +1,7 @@
 ﻿using PizzaStore.Core.Abstractions;
-using PizzaStore.Core.Infrastructure;
+using PizzaStore.Core.Infrastructure.Data;
 
-namespace PizzaStore.Core.EventStores;
+namespace PizzaStore.Core.Infrastructure.EventStores;
 
 public class SqlEventStore : IEventStore
 {

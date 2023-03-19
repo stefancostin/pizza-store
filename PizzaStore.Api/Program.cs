@@ -1,14 +1,23 @@
-using PizzaStore.API.JsonConverters;
-using PizzaStore.Core.EventStores;
-using PizzaStore.Core;
-using PizzaStore.Core.Infrastructure;
 using Microsoft.EntityFrameworkCore;
+using PizzaStore.Api.JsonConverters;
+using PizzaStore.Core.Infrastructure;
+using PizzaStore.Core.Infrastructure.Data;
+using PizzaStore.Core.Infrastructure.Data.Projections;
+using PizzaStore.Core.Infrastructure.Data.Projections.Engine;
+using PizzaStore.Core.Infrastructure.EventStores;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
 builder.Services.AddDbContext<EventContext>(builder => builder.UseSqlServer("Data Source=(LocalDb)\\MSSQLLocalDB;Initial Catalog=EventStorage;Integrated Security=SSPI"));
+builder.Services.AddDbContext<ReadContext>(builder => builder.UseSqlServer("Data Source=(LocalDb)\\MSSQLLocalDB;Initial Catalog=ReadStorage;Integrated Security=SSPI"));
+
+builder.Services.AddHostedService<EventPollingService>();
+builder.Services.AddSingleton<EventProjectionRouter>();
+
+builder.Services.AddSingleton<IProjection, InventoryItemsProjection>();
+builder.Services.AddSingleton<IProjection, InventoryProjection>();
 
 builder.Services.AddScoped<IEventStore, SqlEventStore>();
 builder.Services.AddScoped<CommandRouter>();

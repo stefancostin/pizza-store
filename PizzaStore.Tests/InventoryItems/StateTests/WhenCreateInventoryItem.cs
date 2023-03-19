@@ -1,5 +1,5 @@
 ﻿using FluentAssertions;
-using PizzaStore.Core.Inventory;
+using PizzaStore.Core.Warehousing.Inventory;
 using PizzaStore.Tests.Infrastructure;
 
 namespace PizzaStore.Tests.InventoryItems.StateTests;

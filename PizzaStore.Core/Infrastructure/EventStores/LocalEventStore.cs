@@ -1,6 +1,6 @@
 ﻿using PizzaStore.Core.Abstractions;
 
-namespace PizzaStore.Core.EventStores;
+namespace PizzaStore.Core.Infrastructure.EventStores;
 
 public class LocalEventStore : IEventStore
 {

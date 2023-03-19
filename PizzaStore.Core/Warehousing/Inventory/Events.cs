@@ -1,6 +1,6 @@
 ﻿using PizzaStore.Core.Abstractions;
 
-namespace PizzaStore.Core.Inventory;
+namespace PizzaStore.Core.Warehousing.Inventory;
 
 public record struct InventoryItemCreated(Guid InventoryItemId, string Name) : Event
 {

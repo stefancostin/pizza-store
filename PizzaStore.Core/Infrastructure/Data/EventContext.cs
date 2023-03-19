@@ -5,7 +5,7 @@ using System.Text.Json.Serialization;
 using Microsoft.EntityFrameworkCore;
 using PizzaStore.Core.Abstractions;
 
-namespace PizzaStore.Core.Infrastructure;
+namespace PizzaStore.Core.Infrastructure.Data;
 
 public class EventContext : DbContext
 {

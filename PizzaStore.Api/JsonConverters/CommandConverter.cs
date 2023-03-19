@@ -2,14 +2,20 @@
 using System.Text.Json.Serialization;
 using PizzaStore.Core.Abstractions;
 
-namespace PizzaStore.API.JsonConverters
+namespace PizzaStore.Api.JsonConverters
 {
     public class CommandConverter : JsonConverter<Command>
     {
+        private static JsonSerializerOptions SerializationOptions;
         private static Dictionary<string, Type> TypeLookup;
 
         static CommandConverter()
         {
+            SerializationOptions = new JsonSerializerOptions()
+            {
+                PropertyNamingPolicy = JsonNamingPolicy.CamelCase
+            };
+
             TypeLookup = new Dictionary<string, Type>();
 
             var commandTypes = typeof(Command)
@@ -51,17 +57,17 @@ namespace PizzaStore.API.JsonConverters
             string typeDiscriminator = reader.GetString();
             var commandType = TypeLookup[typeDiscriminator];
 
-
             if (!reader.Read() || reader.GetString().ToLower() != "command")
             {
                 throw new JsonException();
             }
+
             if (!reader.Read() || reader.TokenType != JsonTokenType.StartObject)
             {
                 throw new JsonException();
             }
 
-            command = (Command)JsonSerializer.Deserialize(ref reader, commandType);
+            command = (Command)JsonSerializer.Deserialize(ref reader, commandType, SerializationOptions);
 
             if (!reader.Read() || reader.TokenType != JsonTokenType.EndObject)
             {
