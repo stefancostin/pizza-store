@@ -2,7 +2,7 @@
 using PizzaStore.Core.Abstractions;
 using PizzaStore.Core;
 
-namespace Beersender.API.Controllers
+namespace PizzaStore.Api.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]

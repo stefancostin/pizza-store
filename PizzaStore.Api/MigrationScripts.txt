@@ -1,0 +1,9 @@
+# Execute In Package Manager Console (Project: PizzaStore.Core)
+
+# Create initial migrations for the read/write databases
+Add-Migration -Context EventContext -Namespace Infrastructure.Migrations InitialCreate
+Add-Migration -Context ReadContext -Namespace Infrastructure.Migrations InitialCreate
+
+# Apply the migrations
+Update-Database -Context EventContext
+Update-Database -Context ReadContext

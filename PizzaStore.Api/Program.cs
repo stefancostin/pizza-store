@@ -8,7 +8,7 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
-builder.Services.AddDbContext<EventContext>(builder => builder.UseSqlServer("Data Source=(LocalDb)\\MSSQLLocalDB;Initial Catalog=ReadStorage;Integrated Security=SSPI"));
+builder.Services.AddDbContext<EventContext>(builder => builder.UseSqlServer("Data Source=(LocalDb)\\MSSQLLocalDB;Initial Catalog=EventStorage;Integrated Security=SSPI"));
 
 builder.Services.AddScoped<IEventStore, SqlEventStore>();
 builder.Services.AddScoped<CommandRouter>();
