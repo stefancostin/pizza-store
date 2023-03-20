@@ -1,6 +1,6 @@
 ﻿using PizzaStore.Tests.Infrastructure;
 
-namespace PizzaStore.Tests.InventoryItems.EventTests;
+namespace PizzaStore.Tests.Warehousing.EventTests;
 
 public class WhenCreateInventoryItem : EventPipelineTests
 {

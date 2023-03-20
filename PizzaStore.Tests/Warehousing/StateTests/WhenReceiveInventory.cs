@@ -2,7 +2,7 @@
 using PizzaStore.Core.Warehousing.Inventory;
 using PizzaStore.Tests.Infrastructure;
 
-namespace PizzaStore.Tests.InventoryItems.StateTests;
+namespace PizzaStore.Tests.Warehousing.StateTests;
 
 public class WhenReceiveInventory : AggregateStateTests<InventoryItem>
 {

@@ -1,8 +1,8 @@
 ﻿using PizzaStore.Core.Warehousing.Inventory;
 
-namespace PizzaStore.Tests.InventoryItems
+namespace PizzaStore.Tests.Warehousing
 {
-    internal static class Abstractions
+    internal static class Inventory
     {
         internal readonly static Guid ItemId = Guid.NewGuid();
         internal readonly static string ItemName = "Flour";

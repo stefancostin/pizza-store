@@ -1,4 +1,6 @@
 ﻿using PizzaStore.Core.Infrastructure.EventStores;
+using PizzaStore.Core.Catalogue.CommandHandlers;
+using PizzaStore.Core.Catalogue.Recipes;
 using PizzaStore.Core.Warehousing.CommandHandlers;
 using PizzaStore.Core.Warehousing.Inventory;
 
@@ -17,6 +19,7 @@ public class CommandRouter
     {
         switch (command)
         {
+            // Warehousing
             case CreateInventoryItem createInventoryItem:
                 var inventoryItemCreator = new InventoryItemCreator(_eventStore);
                 inventoryItemCreator.Handle(createInventoryItem);
@@ -32,6 +35,12 @@ public class CommandRouter
             case AdjustInventory setItemQuantityInInventory:
                 var inventoryItemSetter = new InventoryAdjuster(_eventStore);
                 inventoryItemSetter.Handle(setItemQuantityInInventory);
+                return;
+
+            // Catalogue
+            case CreateRecipe createRecipe:
+                var recipeCreator = new RecipeCreator(_eventStore);
+                recipeCreator.Handle(createRecipe);
                 return;
         }
     }
