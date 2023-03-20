@@ -2,22 +2,22 @@
 
 namespace PizzaStore.Core.Warehousing.Inventory;
 
-public record struct CreateInventoryItem(Guid InventoryItemId, string Name) : Command
+public record struct CreateInventoryItem(Guid ItemId, string Name) : Command
 {
-    public Guid AggregateId => InventoryItemId;
+    public Guid AggregateId => ItemId;
 }
 
-public record struct ReceiveInventory(Guid InventoryItemId, int Quantity) : Command
+public record struct ReceiveInventory(Guid ItemId, int Quantity) : Command
 {
-    public Guid AggregateId => InventoryItemId;
+    public Guid AggregateId => ItemId;
 }
 
-public record struct ConsumeInventory(Guid InventoryItemId, int Quantity) : Command
+public record struct ConsumeInventory(Guid ItemId, int Quantity) : Command
 {
-    public Guid AggregateId => InventoryItemId;
+    public Guid AggregateId => ItemId;
 }
 
-public record struct AdjustInventory(Guid InventoryItemId, int Quantity) : Command
+public record struct AdjustInventory(Guid ItemId, int Quantity) : Command
 {
-    public Guid AggregateId => InventoryItemId;
+    public Guid AggregateId => ItemId;
 }

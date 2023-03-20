@@ -12,7 +12,7 @@ using PizzaStore.Core.Infrastructure.Data;
 namespace Infrastructure.Data.Migrations.Events
 {
     [DbContext(typeof(EventContext))]
-    [Migration("20230320054035_InitialCreate")]
+    [Migration("20230320061154_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />

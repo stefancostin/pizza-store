@@ -13,7 +13,25 @@ internal class InventoryAdjuster : CommandHandler<AdjustInventory, InventoryItem
 
     public override void Handle(AdjustInventory command)
     {
-        base.Handle(command);
+        var previousEvents = _eventStore.GetEvents(command.AggregateId);
+
+        var aggregate = new InventoryItem();
+
+        foreach (var previousEvent in previousEvents)
+        {
+            aggregate.Apply(previousEvent);
+        }
+
+        var resultingEvents = aggregate.Handle(command);
+
+        foreach (var resultingEvent in resultingEvents)
+        {
+            _eventStore.Publish(resultingEvent);
+        }
+
+        var stockOperationsEvents = previousEvents.Where(IsStockOperation);
+
+
 
         var removedEvents = _eventStore.Remove(command.AggregateId, IsStockOperation);
 

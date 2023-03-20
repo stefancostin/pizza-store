@@ -37,13 +37,13 @@ public class LocalEventStore : IEventStore
     {
         if (_persistedEvents.TryGetValue(aggregateId, out List<Event> persistedEvents))
         {
-            var events = persistedEvents.Where(predicate).ToList();
+            var disposableEvents = persistedEvents.Where(predicate).ToList();
 
-            if (events.Any())
+            if (disposableEvents.Any())
             {
                 _persistedEvents[aggregateId] = persistedEvents.Where(e => !predicate(e)).ToList();
 
-                return events;
+                return disposableEvents;
             }
         }
 

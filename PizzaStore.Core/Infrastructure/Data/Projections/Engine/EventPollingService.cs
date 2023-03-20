@@ -28,7 +28,8 @@ public class EventPollingService : BackgroundService
 
             var newEvents = context.Events
                 .Where(e => e.Id > lastEventId)
-                .OrderBy(e => e.Id);
+                .OrderBy(e => e.Id)
+                .ToList();
 
             foreach (var persistedEvent in newEvents)
             {

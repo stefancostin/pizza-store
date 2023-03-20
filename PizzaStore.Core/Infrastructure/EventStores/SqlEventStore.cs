@@ -38,16 +38,18 @@ public class SqlEventStore : IEventStore
     public IEnumerable<Event> Remove(Guid aggregateId, Func<Event, bool> predicate)
     {
         var events = _database.Events
-            .Where(e => e.AggregateId == aggregateId && predicate(e.Event))
+            .Where(e => e.AggregateId == aggregateId)
             .OrderBy(e => e.Id)
             .ToList();
 
-        if (events.Any())
+        var disposableEvents = events.Where(e => predicate(e.Event)).ToList();
+
+        if (disposableEvents.Any())
         {
-            _database.Events.RemoveRange(events);
+            _database.Events.RemoveRange(disposableEvents);
             _database.SaveChanges();
         }
 
-        return events.Select(e => e.Event).ToList();
+        return disposableEvents.Select(e => e.Event).ToList();
     }
 }

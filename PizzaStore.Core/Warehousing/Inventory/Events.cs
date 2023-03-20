@@ -2,27 +2,27 @@
 
 namespace PizzaStore.Core.Warehousing.Inventory;
 
-public record struct InventoryItemCreated(Guid InventoryItemId, string Name) : Event
+public record struct InventoryItemCreated(Guid ItemId, string Name) : Event
 {
-    public Guid AggregateId => InventoryItemId;
+    public Guid AggregateId => ItemId;
 }
 
-public record struct InventoryReceived(Guid InventoryItemId, int Quantity) : Event
+public record struct InventoryReceived(Guid ItemId, int Quantity) : Event
 {
-    public Guid AggregateId => InventoryItemId;
+    public Guid AggregateId => ItemId;
 }
 
-public record struct InventoryConsumed(Guid InventoryItemId, int Quantity) : Event
+public record struct InventoryConsumed(Guid ItemId, int Quantity) : Event
 {
-    public Guid AggregateId => InventoryItemId;
+    public Guid AggregateId => ItemId;
 }
 
-public record struct InventoryAdjusted(Guid InventoryItemId, int Quantity) : Event
+public record struct InventoryAdjusted(Guid ItemId, int Quantity) : Event
 {
-    public Guid AggregateId => InventoryItemId;
+    public Guid AggregateId => ItemId;
 }
 
-public record struct InsufficientInventory(Guid InventoryItemId) : Event
+public record struct InsufficientInventory(Guid ItemId) : Event
 {
-    public Guid AggregateId => InventoryItemId;
+    public Guid AggregateId => ItemId;
 }

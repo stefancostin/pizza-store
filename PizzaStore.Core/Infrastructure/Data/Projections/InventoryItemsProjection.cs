@@ -17,6 +17,11 @@ public class InventoryItemsProjection : IProjection
 
     public void Dispatch(Event @event)
     {
+        if (@event.AggregateId == Guid.Empty)
+        {
+            return;
+        }
+
         using var readDbContext = _services.CreateScope().ServiceProvider.GetService<ReadContext>();
 
         var existingInventoryItem = readDbContext.InventoryItems.Find(@event.AggregateId);
@@ -33,6 +38,6 @@ public class InventoryItemsProjection : IProjection
 
     private InventoryItem CreateInventoryItem(InventoryItemCreated @event)
     {
-        return new InventoryItem() { ItemId = @event.InventoryItemId, Name = @event.Name };
+        return new InventoryItem() { ItemId = @event.ItemId, Name = @event.Name };
     }
 }

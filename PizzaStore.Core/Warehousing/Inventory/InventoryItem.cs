@@ -54,7 +54,7 @@ public class InventoryItem : Aggregate
 
     private void ApplyEvent(InventoryItemCreated inventoryItemCreated)
     {
-        Id = inventoryItemCreated.InventoryItemId;
+        Id = inventoryItemCreated.ItemId;
         Name = inventoryItemCreated.Name;
     }
 
@@ -79,28 +79,28 @@ public class InventoryItem : Aggregate
 
     private IEnumerable<Event> HandleCommand(CreateInventoryItem createInventoryItem)
     {
-        yield return new InventoryItemCreated(createInventoryItem.InventoryItemId, createInventoryItem.Name);
+        yield return new InventoryItemCreated(createInventoryItem.ItemId, createInventoryItem.Name);
     }
 
     private IEnumerable<Event> HandleCommand(ReceiveInventory receiveInventory)
     {
-        yield return new InventoryReceived(receiveInventory.InventoryItemId, receiveInventory.Quantity);
+        yield return new InventoryReceived(receiveInventory.ItemId, receiveInventory.Quantity);
     }
 
     private IEnumerable<Event> HandleCommand(ConsumeInventory consumeInventory)
     {
         if (Quantity < consumeInventory.Quantity)
         {
-            yield return new InsufficientInventory(consumeInventory.InventoryItemId);
+            yield return new InsufficientInventory(consumeInventory.ItemId);
             yield break;
         }
 
-        yield return new InventoryConsumed(consumeInventory.InventoryItemId, consumeInventory.Quantity);
+        yield return new InventoryConsumed(consumeInventory.ItemId, consumeInventory.Quantity);
     }
 
     private IEnumerable<Event> HandleCommand(AdjustInventory adjustInventory)
     {
-        yield return new InventoryAdjusted(adjustInventory.InventoryItemId, adjustInventory.Quantity);
+        yield return new InventoryAdjusted(adjustInventory.ItemId, adjustInventory.Quantity);
     }
 
     #endregion

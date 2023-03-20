@@ -21,6 +21,11 @@ public class InventoryProjection : IProjection
 
     public void Dispatch(Event @event)
     {
+        if (@event.AggregateId == Guid.Empty)
+        {
+            return;
+        }
+
         using var readDbContext = _services.CreateScope().ServiceProvider.GetService<ReadContext>();
 
         var inventory = FindInventory(@event, readDbContext);

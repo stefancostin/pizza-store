@@ -15,6 +15,6 @@ public class WhenCreateInventoryItem : AggregateStateTests<InventoryItem>
             CreateInventoryItem());
 
         Then(
-            inventoryItem => inventoryItem.Name.Should().Be(InventoryItemName));
+            inventoryItem => inventoryItem.Name.Should().Be(ItemName));
     }
 }
