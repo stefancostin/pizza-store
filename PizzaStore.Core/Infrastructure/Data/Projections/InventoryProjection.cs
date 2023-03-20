@@ -1,6 +1,5 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using PizzaStore.Core.Abstractions;
-using PizzaStore.Core.Infrastructure.Data;
 using PizzaStore.Core.Warehousing.Inventory;
 
 namespace PizzaStore.Core.Infrastructure.Data.Projections;

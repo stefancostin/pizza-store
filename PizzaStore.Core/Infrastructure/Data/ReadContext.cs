@@ -11,6 +11,9 @@ public class ReadContext : DbContext
 
     public DbSet<InventoryItem> InventoryItems { get; set; }
     public DbSet<Inventory> Inventory { get; set; }
+
+    public DbSet<Recipe> Recipes { get; set; }
+    public DbSet<RecipeIngredient> RecipeIngredients { get; set; }
 }
 
 public class InventoryItem
@@ -24,5 +27,21 @@ public class Inventory
 {
     [Key]
     public Guid ItemId { get; set; }
+    public int Quantity { get; set; }
+}
+
+public class Recipe
+{
+    [Key]
+    public Guid RecipeId { get; set; }
+    public string Name { get; set; }
+    public ICollection<RecipeIngredient> Ingredients { get; set; }     
+}
+
+public class RecipeIngredient
+{
+    [Key]
+    public Guid IngredientId { get; set; }
+    public Guid InventoryItemId { get; set; }
     public int Quantity { get; set; }
 }

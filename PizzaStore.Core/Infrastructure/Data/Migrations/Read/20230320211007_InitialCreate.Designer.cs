@@ -12,7 +12,7 @@ using PizzaStore.Core.Infrastructure.Data;
 namespace Infrastructure.Data.Migrations.Read
 {
     [DbContext(typeof(ReadContext))]
-    [Migration("20230320061201_InitialCreate")]
+    [Migration("20230320211007_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -51,6 +51,54 @@ namespace Infrastructure.Data.Migrations.Read
                     b.HasKey("ItemId");
 
                     b.ToTable("InventoryItems");
+                });
+
+            modelBuilder.Entity("PizzaStore.Core.Infrastructure.Data.Recipe", b =>
+                {
+                    b.Property<Guid>("RecipeId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("RecipeId");
+
+                    b.ToTable("Recipes");
+                });
+
+            modelBuilder.Entity("PizzaStore.Core.Infrastructure.Data.RecipeIngredient", b =>
+                {
+                    b.Property<Guid>("IngredientId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("InventoryItemId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<int>("Quantity")
+                        .HasColumnType("int");
+
+                    b.Property<Guid?>("RecipeId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("IngredientId");
+
+                    b.HasIndex("RecipeId");
+
+                    b.ToTable("RecipeIngredients");
+                });
+
+            modelBuilder.Entity("PizzaStore.Core.Infrastructure.Data.RecipeIngredient", b =>
+                {
+                    b.HasOne("PizzaStore.Core.Infrastructure.Data.Recipe", null)
+                        .WithMany("Ingredients")
+                        .HasForeignKey("RecipeId");
+                });
+
+            modelBuilder.Entity("PizzaStore.Core.Infrastructure.Data.Recipe", b =>
+                {
+                    b.Navigation("Ingredients");
                 });
 #pragma warning restore 612, 618
         }
