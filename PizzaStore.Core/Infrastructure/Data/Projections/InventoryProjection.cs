@@ -15,9 +15,9 @@ public class InventoryProjection : IProjection
     }
 
     public bool ShouldProcess(Event @event) =>
-        @event is ItemQuantityAdded ||
-        @event is ItemQuantityRemoved ||
-        @event is ItemQuantitySet;
+        @event is InventoryReceived ||
+        @event is InventoryConsumed ||
+        @event is InventoryAdjusted;
 
     public void Dispatch(Event @event)
     {
@@ -33,11 +33,11 @@ public class InventoryProjection : IProjection
     {
         switch (@event)
         {
-            case ItemQuantityAdded itemQuantityAdded:
+            case InventoryReceived itemQuantityAdded:
                 return inventory.Quantity + itemQuantityAdded.Quantity;
-            case ItemQuantityRemoved itemQuantityRemoved:
+            case InventoryConsumed itemQuantityRemoved:
                 return inventory.Quantity - itemQuantityRemoved.Quantity;
-            case ItemQuantitySet itemQuantitySet:
+            case InventoryAdjusted itemQuantitySet:
                 return itemQuantitySet.Quantity;
             default:
                 throw new NotImplementedException("Event projection not implemented");

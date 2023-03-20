@@ -2,7 +2,7 @@
 
 namespace PizzaStore.Tests.InventoryItems.EventTests;
 
-public class WhenAddItemQuantity : EventPipelineTests
+public class WhenReceiveInventory : EventPipelineTests
 {
     [Fact]
     public void ThenItemQuantityIsAddedToInventory()
@@ -11,9 +11,9 @@ public class WhenAddItemQuantity : EventPipelineTests
             InventoryItemIsCreated());
 
         When(
-            AddItemQuantityToInventory(10));
+            ReceiveInventory(10));
 
         Then(
-            ItemQuantityIsAddedToInventory(10));
+            ReceivedInInventory(10));
     }
 }

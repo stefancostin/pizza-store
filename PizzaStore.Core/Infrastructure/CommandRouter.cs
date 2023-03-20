@@ -21,16 +21,16 @@ public class CommandRouter
                 var inventoryItemCreator = new InventoryItemCreator(_eventStore);
                 inventoryItemCreator.Handle(createInventoryItem);
                 return;
-            case AddItemQuantity addItemQuantityToInventory:
-                var inventoryItemAdder = new InventoryItemQuantityAdder(_eventStore);
+            case ReceiveInventory addItemQuantityToInventory:
+                var inventoryItemAdder = new InventoryReceiver(_eventStore);
                 inventoryItemAdder.Handle(addItemQuantityToInventory);
                 return;
-            case RemoveItemQuantity removeItemQuantityFromInventory:
-                var inventoryItemRemover = new InventoryItemQuantityRemover(_eventStore);
+            case ConsumeInventory removeItemQuantityFromInventory:
+                var inventoryItemRemover = new InventoryConsumer(_eventStore);
                 inventoryItemRemover.Handle(removeItemQuantityFromInventory);
                 return;
-            case SetItemQuantity setItemQuantityInInventory:
-                var inventoryItemSetter = new InventoryItemQuantitySetter(_eventStore);
+            case AdjustInventory setItemQuantityInInventory:
+                var inventoryItemSetter = new InventoryAdjuster(_eventStore);
                 inventoryItemSetter.Handle(setItemQuantityInInventory);
                 return;
         }

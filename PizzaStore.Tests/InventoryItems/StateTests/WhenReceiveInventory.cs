@@ -4,7 +4,7 @@ using PizzaStore.Tests.Infrastructure;
 
 namespace PizzaStore.Tests.InventoryItems.StateTests;
 
-public class WhenAddItemQuantity : AggregateStateTests<InventoryItem>
+public class WhenReceiveInventory : AggregateStateTests<InventoryItem>
 {
     [Fact]
     public void ThenItemQuantityIsAddedToInventory()
@@ -13,7 +13,7 @@ public class WhenAddItemQuantity : AggregateStateTests<InventoryItem>
             InventoryItemIsCreated());
 
         When(
-            AddItemQuantityToInventory(10));
+            ReceiveInventory(10));
 
         Then(
             inventoryItem => inventoryItem.Quantity.Should().Be(10));

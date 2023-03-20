@@ -2,20 +2,20 @@
 
 namespace PizzaStore.Tests.InventoryItems.EventTests;
 
-public class WhenSetItemQuantity : EventPipelineTests
+public class WhenAdjustInventory : EventPipelineTests
 {
     [Fact]
     public void ThenItemQuantityIsSet()
     {
         Given(
             InventoryItemIsCreated(),
-            ItemQuantityIsAddedToInventory(10));
+            ReceivedInInventory(10));
 
         When(
-            SetItemQuantity(5));
+            AdjustInventory(5));
 
         Then(
-            ItemQuantityIsSetInInventory(5));
+            InventoryIsAdjusted(5));
     }
 
     [Fact]
@@ -23,14 +23,14 @@ public class WhenSetItemQuantity : EventPipelineTests
     {
         Given(
             InventoryItemIsCreated(),
-            ItemQuantityIsAddedToInventory(10),
-            ItemQuantityIsRemovedFromInventory(5));
+            ReceivedInInventory(10),
+            ConsumedFromInventory(5));
 
         When(
-            SetItemQuantity(5));
+            AdjustInventory(5));
 
         ThenAll(
             InventoryItemIsCreated(),
-            ItemQuantityIsSetInInventory(5));
+            InventoryIsAdjusted(5));
     }
 }

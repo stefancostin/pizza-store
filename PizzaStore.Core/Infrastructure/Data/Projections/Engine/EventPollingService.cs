@@ -1,6 +1,5 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using PizzaStore.Core.Infrastructure.Data;
 
 namespace PizzaStore.Core.Infrastructure.Data.Projections.Engine;
 

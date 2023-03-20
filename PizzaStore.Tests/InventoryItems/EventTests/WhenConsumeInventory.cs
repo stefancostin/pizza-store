@@ -2,20 +2,20 @@
 
 namespace PizzaStore.Tests.InventoryItems.EventTests;
 
-public class WhenRemoveItemQuantity : EventPipelineTests
+public class WhenConsumeInventory : EventPipelineTests
 {
     [Fact]
     public void AndSufficientStockThenItemQuantityIsRemoved()
     {
         Given(
             InventoryItemIsCreated(),
-            ItemQuantityIsAddedToInventory(10));
+            ReceivedInInventory(10));
 
         When(
-            RemoveItemQuantityFromInventory(10));
+            ConsumeInventory(10));
 
         Then(
-            ItemQuantityIsRemovedFromInventory(10));
+            ConsumedFromInventory(10));
     }
 
     [Fact]
@@ -25,9 +25,9 @@ public class WhenRemoveItemQuantity : EventPipelineTests
             InventoryItemIsCreated());
 
         When(
-            RemoveItemQuantityFromInventory(10));
+            ConsumeInventory(10));
 
         Then(
-            InsuffucientItemQuantityInInventory());
+            InsuffucientInventory());
     }
 }

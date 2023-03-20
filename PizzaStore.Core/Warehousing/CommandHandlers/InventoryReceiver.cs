@@ -4,9 +4,9 @@ using PizzaStore.Core.Warehousing.Inventory;
 
 namespace PizzaStore.Core.Warehousing.CommandHandlers;
 
-internal class InventoryItemQuantityRemover : CommandHandler<RemoveItemQuantity, InventoryItem>
+internal class InventoryReceiver : CommandHandler<ReceiveInventory, InventoryItem>
 {
-    public InventoryItemQuantityRemover(IEventStore eventStore) : base(eventStore)
+    public InventoryReceiver(IEventStore eventStore) : base(eventStore)
     {
     }
 }

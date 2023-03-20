@@ -4,17 +4,17 @@ using PizzaStore.Tests.Infrastructure;
 
 namespace PizzaStore.Tests.InventoryItems.StateTests;
 
-public class WhenRemoveItemQuantity : AggregateStateTests<InventoryItem>
+public class WhenConsumeInventory : AggregateStateTests<InventoryItem>
 {
     [Fact]
     public void AndStockIsTheSameAsQuantityRemovedThenItemQuantityIsZero()
     {
         Given(
             InventoryItemIsCreated(),
-            ItemQuantityIsAddedToInventory(10));
+            ReceivedInInventory(10));
 
         When(
-            RemoveItemQuantityFromInventory(10));
+            ConsumeInventory(10));
 
         Then(
             inventoryItem => inventoryItem.Quantity.Should().Be(0));
@@ -25,10 +25,10 @@ public class WhenRemoveItemQuantity : AggregateStateTests<InventoryItem>
     {
         Given(
             InventoryItemIsCreated(),
-            ItemQuantityIsAddedToInventory(10));
+            ReceivedInInventory(10));
 
         When(
-            RemoveItemQuantityFromInventory(5));
+            ConsumeInventory(5));
 
         Then(
             inventoryItem => inventoryItem.Quantity.Should().Be(5));

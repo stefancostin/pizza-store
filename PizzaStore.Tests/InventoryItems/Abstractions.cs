@@ -14,24 +14,24 @@ namespace PizzaStore.Tests.InventoryItems
             return new InventoryItemCreated(InventoryItemId, InventoryItemName);
         }
 
-        internal static ItemQuantityAdded ItemQuantityIsAddedToInventory(int quantity)
+        internal static InventoryReceived ReceivedInInventory(int quantity)
         {
-            return new ItemQuantityAdded(InventoryItemId, quantity);
+            return new InventoryReceived(InventoryItemId, quantity);
         }
 
-        internal static ItemQuantityRemoved ItemQuantityIsRemovedFromInventory(int quantity)
+        internal static InventoryConsumed ConsumedFromInventory(int quantity)
         {
-            return new ItemQuantityRemoved(InventoryItemId, quantity);
+            return new InventoryConsumed(InventoryItemId, quantity);
         }
 
-        internal static InsufficientItemQuantity InsuffucientItemQuantityInInventory()
+        internal static InsufficientInventory InsuffucientInventory()
         {
-            return new InsufficientItemQuantity(InventoryItemId);
+            return new InsufficientInventory(InventoryItemId);
         }
 
-        internal static ItemQuantitySet ItemQuantityIsSetInInventory(int quantity)
+        internal static InventoryAdjusted InventoryIsAdjusted(int quantity)
         {
-            return new ItemQuantitySet(InventoryItemId, quantity);
+            return new InventoryAdjusted(InventoryItemId, quantity);
         }
 
         #endregion
@@ -43,19 +43,19 @@ namespace PizzaStore.Tests.InventoryItems
             return new CreateInventoryItem(InventoryItemId, InventoryItemName);
         }
 
-        public static AddItemQuantity AddItemQuantityToInventory(int quantity)
+        public static ReceiveInventory ReceiveInventory(int quantity)
         {
-            return new AddItemQuantity(InventoryItemId, quantity);
+            return new ReceiveInventory(InventoryItemId, quantity);
         }
 
-        public static RemoveItemQuantity RemoveItemQuantityFromInventory(int quantity)
+        public static ConsumeInventory ConsumeInventory(int quantity)
         {
-            return new RemoveItemQuantity(InventoryItemId, quantity);
+            return new ConsumeInventory(InventoryItemId, quantity);
         }
 
-        public static SetItemQuantity SetItemQuantity(int quantity)
+        public static AdjustInventory AdjustInventory(int quantity)
         {
-            return new SetItemQuantity(InventoryItemId, quantity);
+            return new AdjustInventory(InventoryItemId, quantity);
         }
 
         #endregion

@@ -4,9 +4,9 @@ using PizzaStore.Core.Warehousing.Inventory;
 
 namespace PizzaStore.Core.Warehousing.CommandHandlers;
 
-internal class InventoryItemQuantityAdder : CommandHandler<AddItemQuantity, InventoryItem>
+internal class InventoryConsumer : CommandHandler<ConsumeInventory, InventoryItem>
 {
-    public InventoryItemQuantityAdder(IEventStore eventStore) : base(eventStore)
+    public InventoryConsumer(IEventStore eventStore) : base(eventStore)
     {
     }
 }

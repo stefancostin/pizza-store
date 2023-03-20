@@ -7,17 +7,17 @@ public record struct CreateInventoryItem(Guid InventoryItemId, string Name) : Co
     public Guid AggregateId => InventoryItemId;
 }
 
-public record struct AddItemQuantity(Guid InventoryItemId, int Quantity) : Command
+public record struct ReceiveInventory(Guid InventoryItemId, int Quantity) : Command
 {
     public Guid AggregateId => InventoryItemId;
 }
 
-public record struct RemoveItemQuantity(Guid InventoryItemId, int Quantity) : Command
+public record struct ConsumeInventory(Guid InventoryItemId, int Quantity) : Command
 {
     public Guid AggregateId => InventoryItemId;
 }
 
-public record struct SetItemQuantity(Guid InventoryItemId, int Quantity) : Command
+public record struct AdjustInventory(Guid InventoryItemId, int Quantity) : Command
 {
     public Guid AggregateId => InventoryItemId;
 }

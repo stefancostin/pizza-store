@@ -5,13 +5,13 @@ using PizzaStore.Core.Warehousing.Inventory;
 
 namespace PizzaStore.Core.Warehousing.CommandHandlers;
 
-internal class InventoryItemQuantitySetter : CommandHandler<SetItemQuantity, InventoryItem>
+internal class InventoryAdjuster : CommandHandler<AdjustInventory, InventoryItem>
 {
-    public InventoryItemQuantitySetter(IEventStore eventStore) : base(eventStore)
+    public InventoryAdjuster(IEventStore eventStore) : base(eventStore)
     {
     }
 
-    public override void Handle(SetItemQuantity command)
+    public override void Handle(AdjustInventory command)
     {
         base.Handle(command);
 
@@ -23,5 +23,5 @@ internal class InventoryItemQuantitySetter : CommandHandler<SetItemQuantity, Inv
         // - a separate event stream if we want to have direct access within the same event store. Then we can still use them as regular events in projections and subscriptions, making the operations part easier.
     }
 
-    private bool IsStockOperation(Event e) => e is ItemQuantityAdded || e is ItemQuantityRemoved;
+    private bool IsStockOperation(Event e) => e is InventoryReceived || e is InventoryConsumed;
 }

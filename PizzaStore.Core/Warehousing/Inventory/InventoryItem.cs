@@ -19,14 +19,14 @@ public class InventoryItem : Aggregate
             case InventoryItemCreated inventoryItemCreated:
                 ApplyEvent(inventoryItemCreated);
                 return;
-            case ItemQuantityAdded itemQuantityAdded:
-                ApplyEvent(itemQuantityAdded);
+            case InventoryReceived inventoryReceived:
+                ApplyEvent(inventoryReceived);
                 return;
-            case ItemQuantityRemoved itemQuantityRemoved:
-                ApplyEvent(itemQuantityRemoved);
+            case InventoryConsumed inventoryConsumed:
+                ApplyEvent(inventoryConsumed);
                 return;
-            case ItemQuantitySet itemQuantitySet:
-                ApplyEvent(itemQuantitySet);
+            case InventoryAdjusted inventoryAdjusted:
+                ApplyEvent(inventoryAdjusted);
                 return;
             default:
                 throw new NotImplementedException("Event type not implemented");
@@ -39,12 +39,12 @@ public class InventoryItem : Aggregate
         {
             case CreateInventoryItem createInventoryItem:
                 return HandleCommand(createInventoryItem);
-            case AddItemQuantity addItemQuantity:
-                return HandleCommand(addItemQuantity);
-            case RemoveItemQuantity removeItemQuantity:
-                return HandleCommand(removeItemQuantity);
-            case SetItemQuantity setItemQuantity:
-                return HandleCommand(setItemQuantity);
+            case ReceiveInventory receiveInventory:
+                return HandleCommand(receiveInventory);
+            case ConsumeInventory consumeInventory:
+                return HandleCommand(consumeInventory);
+            case AdjustInventory adjustInventory:
+                return HandleCommand(adjustInventory);
             default:
                 throw new NotImplementedException("Command type not implemented");
         }
@@ -58,19 +58,19 @@ public class InventoryItem : Aggregate
         Name = inventoryItemCreated.Name;
     }
 
-    private void ApplyEvent(ItemQuantityAdded itemQuantityAdded)
+    private void ApplyEvent(InventoryReceived inventoryReceived)
     {
-        Quantity += itemQuantityAdded.Quantity;
+        Quantity += inventoryReceived.Quantity;
     }
 
-    private void ApplyEvent(ItemQuantityRemoved itemQuantityRemoved)
+    private void ApplyEvent(InventoryConsumed inventoryConsumed)
     {
-        Quantity -= itemQuantityRemoved.Quantity;
+        Quantity -= inventoryConsumed.Quantity;
     }
 
-    private void ApplyEvent(ItemQuantitySet itemQuantitySet)
+    private void ApplyEvent(InventoryAdjusted inventoryAdjusted)
     {
-        Quantity = itemQuantitySet.Quantity;
+        Quantity = inventoryAdjusted.Quantity;
     }
 
     #endregion
@@ -82,25 +82,25 @@ public class InventoryItem : Aggregate
         yield return new InventoryItemCreated(createInventoryItem.InventoryItemId, createInventoryItem.Name);
     }
 
-    private IEnumerable<Event> HandleCommand(AddItemQuantity addItemQuantity)
+    private IEnumerable<Event> HandleCommand(ReceiveInventory receiveInventory)
     {
-        yield return new ItemQuantityAdded(addItemQuantity.InventoryItemId, addItemQuantity.Quantity);
+        yield return new InventoryReceived(receiveInventory.InventoryItemId, receiveInventory.Quantity);
     }
 
-    private IEnumerable<Event> HandleCommand(RemoveItemQuantity removeItemQuantity)
+    private IEnumerable<Event> HandleCommand(ConsumeInventory consumeInventory)
     {
-        if (Quantity < removeItemQuantity.Quantity)
+        if (Quantity < consumeInventory.Quantity)
         {
-            yield return new InsufficientItemQuantity(removeItemQuantity.InventoryItemId);
+            yield return new InsufficientInventory(consumeInventory.InventoryItemId);
             yield break;
         }
 
-        yield return new ItemQuantityRemoved(removeItemQuantity.InventoryItemId, removeItemQuantity.Quantity);
+        yield return new InventoryConsumed(consumeInventory.InventoryItemId, consumeInventory.Quantity);
     }
 
-    private IEnumerable<Event> HandleCommand(SetItemQuantity setItemQuantity)
+    private IEnumerable<Event> HandleCommand(AdjustInventory adjustInventory)
     {
-        yield return new ItemQuantitySet(setItemQuantity.InventoryItemId, setItemQuantity.Quantity);
+        yield return new InventoryAdjusted(adjustInventory.InventoryItemId, adjustInventory.Quantity);
     }
 
     #endregion
