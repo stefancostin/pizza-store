@@ -14,6 +14,10 @@ public class ReadContext : DbContext
 
     public DbSet<Recipe> Recipes { get; set; }
     public DbSet<RecipeIngredient> RecipeIngredients { get; set; }
+
+    public DbSet<Pizza> Pizzas { get; set; }
+    public DbSet<Order> Orders { get; set; }
+    public DbSet<OrderLine> OrderLines { get; set; }
 }
 
 public class InventoryItem
@@ -44,4 +48,28 @@ public class RecipeIngredient
     public Guid IngredientId { get; set; }
     public Guid InventoryItemId { get; set; }
     public int Quantity { get; set; }
+}
+
+public class Pizza
+{
+    [Key]
+    public Guid PizzaId { get; set; }
+    public Guid RecipeId { get; set; }
+    public int Price { get; set; }
+}
+
+public class Order
+{
+    [Key]
+    public Guid OrderId { get; set; }
+    public int Total { get; set; }
+    public bool IsPlaced { get; set; }
+}
+
+public class OrderLine
+{
+    [Key]
+    public Guid LineId { get; set; }
+    public Guid PizzaId { get; set; }
+    public int Price { get; set; }
 }
