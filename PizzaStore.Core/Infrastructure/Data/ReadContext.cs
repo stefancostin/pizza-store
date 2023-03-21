@@ -55,6 +55,7 @@ public class Pizza
     [Key]
     public Guid PizzaId { get; set; }
     public Guid RecipeId { get; set; }
+    public string Name { get; set; }
     public int Price { get; set; }
 }
 
@@ -64,6 +65,7 @@ public class Order
     public Guid OrderId { get; set; }
     public int Total { get; set; }
     public bool IsPlaced { get; set; }
+    public ICollection<OrderLine> OrderLines { get; set; }
 }
 
 public class OrderLine

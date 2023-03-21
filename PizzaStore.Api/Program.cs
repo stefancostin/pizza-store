@@ -18,6 +18,9 @@ builder.Services.AddSingleton<EventProjectionRouter>();
 
 builder.Services.AddSingleton<IProjection, InventoryItemsProjection>();
 builder.Services.AddSingleton<IProjection, InventoryProjection>();
+//builder.Services.AddSingleton<IProjection, RecipesProjection>();
+//builder.Services.AddSingleton<IProjection, PizzasProjection>();
+//builder.Services.AddSingleton<IProjection, OrdersProjection>();
 
 builder.Services.AddScoped<IEventStore, SqlEventStore>();
 builder.Services.AddScoped<CommandRouter>();
