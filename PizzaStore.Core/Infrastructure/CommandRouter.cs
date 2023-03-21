@@ -1,6 +1,9 @@
 ﻿using PizzaStore.Core.Infrastructure.EventStores;
 using PizzaStore.Core.Catalogue.CommandHandlers;
 using PizzaStore.Core.Catalogue.Recipes;
+using PizzaStore.Core.Sales.CommandHandlers;
+using PizzaStore.Core.Sales.Orders;
+using PizzaStore.Core.Sales.Pizzas;
 using PizzaStore.Core.Warehousing.CommandHandlers;
 using PizzaStore.Core.Warehousing.Inventory;
 
@@ -41,6 +44,20 @@ public class CommandRouter
             case CreateRecipe createRecipe:
                 var recipeCreator = new RecipeCreator(_eventStore);
                 recipeCreator.Handle(createRecipe);
+                return;
+
+            // Sales
+            case CreatePizza createPizza:
+                var pizzaCreator = new PizzaCreator(_eventStore);
+                pizzaCreator.Handle(createPizza);
+                return;
+            case CreateOrder createOrder:
+                var orderCreator = new OrderCreator(_eventStore);
+                orderCreator.Handle(createOrder);
+                return;
+            case PlaceOrder placeOrder:
+                var orderSender = new OrderSender(_eventStore);
+                orderSender.Handle(placeOrder);
                 return;
         }
     }
