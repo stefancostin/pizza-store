@@ -46,17 +46,17 @@ public class OrdersProjection : IProjection
             OrderId = orderCreated.OrderId
         };
 
-        //order.OrderLines = orderCreated.Pizzas.Select(CreateOrderLine).ToList();
+        //order.OrderItems = orderCreated.Pizzas.Select(CreateOrderLine).ToList();
         //order.Total = orderCreated.Pizzas.Sum(p => p.Price);
 
         return order;
     }
 
-    private OrderLine CreateOrderLine(Pizza pizza)
+    private OrderItem CreateOrderLine(Pizza pizza)
     {
-        return new OrderLine()
+        return new OrderItem()
         {
-            LineId = Guid.NewGuid(),
+            OrderItemId = Guid.NewGuid(),
             PizzaId = pizza.PizzaId,
 
             // The price of the Pizza (product) can change anytime in the future,

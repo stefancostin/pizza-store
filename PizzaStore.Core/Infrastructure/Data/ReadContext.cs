@@ -17,7 +17,7 @@ public class ReadContext : DbContext
 
     public DbSet<Pizza> Pizzas { get; set; }
     public DbSet<Order> Orders { get; set; }
-    public DbSet<OrderLine> OrderLines { get; set; }
+    public DbSet<OrderItem> OrderItems { get; set; }
 }
 
 public class InventoryItem
@@ -65,13 +65,13 @@ public class Order
     public Guid OrderId { get; set; }
     public int Total { get; set; }
     public bool IsPlaced { get; set; }
-    public ICollection<OrderLine> OrderLines { get; set; }
+    public ICollection<OrderItem> OrderLines { get; set; }
 }
 
-public class OrderLine
+public class OrderItem
 {
     [Key]
-    public Guid LineId { get; set; }
+    public Guid OrderItemId { get; set; }
     public Guid PizzaId { get; set; }
     public int Price { get; set; }
 }

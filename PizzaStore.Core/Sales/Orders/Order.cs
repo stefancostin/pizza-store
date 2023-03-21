@@ -1,4 +1,5 @@
 ﻿using PizzaStore.Core.Abstractions;
+using PizzaStore.Core.Sales.Pizzas;
 
 namespace PizzaStore.Core.Sales.Orders;
 
@@ -6,7 +7,7 @@ namespace PizzaStore.Core.Sales.Orders;
 public class Order : Aggregate
 {
     public Guid OrderId { get; private set; }
-    public ISet<Guid> Pizzas { get; private set; }
+    public IEnumerable<Pizza> Pizzas { get; private set; }
     public int Total { get; private set; }
     public bool IsPlaced { get; private set; }
 

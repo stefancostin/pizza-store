@@ -1,8 +1,9 @@
 ﻿using PizzaStore.Core.Abstractions;
+using PizzaStore.Core.Sales.Pizzas;
 
 namespace PizzaStore.Core.Sales.Orders;
 
-public record struct CreateOrder(Guid OrderId, ISet<Guid> Pizzas) : Command
+public record struct CreateOrder(Guid OrderId, ISet<Pizza> Pizzas) : Command
 {
     public Guid AggregateId => OrderId;
 }

@@ -1,8 +1,9 @@
 ﻿using PizzaStore.Core.Abstractions;
+using PizzaStore.Core.Sales.Pizzas;
 
 namespace PizzaStore.Core.Sales.Orders;
 
-public record struct OrderCreated(Guid OrderId, ISet<Guid> Pizzas) : Event
+public record struct OrderCreated(Guid OrderId, IEnumerable<Pizza> Pizzas) : Event
 {
     public Guid AggregateId => OrderId;
 }
